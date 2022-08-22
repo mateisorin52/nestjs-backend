@@ -9,4 +9,7 @@ export class QuestionsService {
       data,
     });
   }
+  async getQuestions() {
+    return await this.prisma.question.findMany();
+  }
 }

@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // await prisma.$connect().then(res=>{console.log("Database connected!")}).catch(err=>{console.log(`Error is : ${err}`)})
-  await app.listen(3000);
+  app.enableCors();
+  await app.listen(3001);
 }
 bootstrap();
