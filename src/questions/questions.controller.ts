@@ -1,7 +1,15 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+  ValidationPipe,
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { Prisma, PrismaClient, Question, User } from '@prisma/client';
 import { QuestionsService } from './questions.service';
-const prisma = new PrismaClient();
 @Controller('questions')
 export class QuestionsController {
   constructor(private readonly questionService: QuestionsService) {}
@@ -44,6 +52,7 @@ export class QuestionsController {
     }
     return response;
   }
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   getQuestions() {
     return this.questionService.getQuestions();

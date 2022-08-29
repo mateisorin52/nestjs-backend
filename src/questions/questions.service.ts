@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, PrismaClient, Question, User } from '@prisma/client';
-import { PrismaService } from 'prisma/prisma.service';
+import { Prisma, Question } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class QuestionsService {
   constructor(private prisma: PrismaService) {}
@@ -11,5 +11,8 @@ export class QuestionsService {
   }
   async getQuestions() {
     return await this.prisma.question.findMany();
+  }
+  async getQuestion(id: string) {
+    return await this.prisma.question.findUnique({ where: { id } });
   }
 }
